@@ -1,8 +1,8 @@
 <project>
   <groupId>com.thinkbiganalytics.kylo</groupId>
-  <artifactId>simple-spark</artifactId>
+  <artifactId>livy-client</artifactId>
   <modelVersion>4.0.0</modelVersion>
-  <name>Simple Spark App</name>
+  <name>Simple Livy Client</name>
   <packaging>jar</packaging>
   <version>0.1.0-SNAPSHOT</version>
   <properties>

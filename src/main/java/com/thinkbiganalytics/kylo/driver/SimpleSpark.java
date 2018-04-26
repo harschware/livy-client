@@ -1,5 +1,6 @@
 package com.thinkbiganalytics.kylo.driver;
 
+import org.apache.spark.api.java.function.FilterFunction;
 import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.Dataset;
 import org.slf4j.Logger;
@@ -26,8 +27,8 @@ public class SimpleSpark {
     SparkSession spark = SparkSession.builder().appName("Simple Application").getOrCreate();
     Dataset<String> logData = spark.read().textFile(inputFile).cache();
 
-    long numAs = logData.filter(s -> s.contains("a")).count();
-    long numBs = logData.filter(s -> s.contains("b")).count();
+    long numAs = logData.filter((FilterFunction<String>) s -> s.contains("a")).count();
+    long numBs = logData.filter((FilterFunction<String>)s -> s.contains("b")).count();
 
     logger.info("Lines with a: " + numAs + ", lines with b: " + numBs);
 
