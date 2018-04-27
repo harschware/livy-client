@@ -27,21 +27,21 @@ import java.io.File;
 import java.net.URI;
 
 /**
-* To run:
+ * To run:
  * Configure and start Livy
- *   1. Download Livy and unpack
- *   $  wget http://apache.cs.utah.edu/incubator/livy/0.5.0-incubating/livy-0.5.0-incubating-bin.zip
- *   $  unzip
- *   2. Create conf file
- *   $  cd livy-0.5.0-incubating-bin/conf
- *   $  cp livy.conf.template livy.conf
- *   3. Add the following config to livy.conf
- *      livy.file.local-dir-whitelist =/home/harsch/.livy-sessions/
- *   4. Create log conf file
- *   $  cp log4j.properties.template log4j.properties
+ * 1. Download Livy and unpack
+ * $  wget http://apache.cs.utah.edu/incubator/livy/0.5.0-incubating/livy-0.5.0-incubating-bin.zip
+ * $  unzip
+ * 2. Create conf file
+ * $  cd livy-0.5.0-incubating-bin/conf
+ * $  cp livy.conf.template livy.conf
+ * 3. Add the following config to livy.conf
+ * livy.file.local-dir-whitelist =/home/harsch/.livy-sessions/
+ * 4. Create log conf file
+ * $  cp log4j.properties.template log4j.properties
  * Run the this App with runPi.sh
- *   $  use runPi.sh
-*/
+ * $  use runPi.sh
+ */
 public class LivyClientApp {
     public static void main(String[] args) throws Exception {
         if (args.length != 2) {
