@@ -1,37 +1,112 @@
 <project>
-  <groupId>com.thinkbiganalytics.kylo</groupId>
-  <artifactId>livy-client</artifactId>
-  <modelVersion>4.0.0</modelVersion>
-  <name>Simple Livy Client</name>
-  <packaging>jar</packaging>
-  <version>0.1.0-SNAPSHOT</version>
-  <properties>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <groupId>com.thinkbiganalytics.kylo</groupId>
+    <artifactId>livy-client-app</artifactId>
+    <modelVersion>4.0.0</modelVersion>
+    <name>Simple Livy Client</name>
+    <packaging>jar</packaging>
+    <version>0.1.0-SNAPSHOT</version>
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
 
-    <!-- *** VERSIONS *** -->
-    <slf4j.version>1.7.12</slf4j.version>
-    <slf4j.log4j12.version>1.7.10</slf4j.log4j12.version>
-    <spark.sql.version>2.3.0</spark.sql.version>
-  </properties>
-  <dependencies>
-    <dependency> <!-- Spark dependency -->
-      <groupId>org.apache.spark</groupId>
-      <artifactId>spark-sql_2.11</artifactId>
-      <version>${spark.sql.version}</version>
-    </dependency>
+        <!-- *** VERSIONS *** -->
+        <slf4j.version>1.7.12</slf4j.version>
+        <slf4j.log4j12.version>1.7.10</slf4j.log4j12.version>
+        <spark.sql.version>1.6.2</spark.sql.version>
 
-    <!-- Logging -->
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>${slf4j.version}</version>
-    </dependency>
+        <plugin.compiler.version>3.2</plugin.compiler.version>
+        <plugin.onejar.version>1.4.4</plugin.onejar.version>
+        <plugin.assembly.version>3.1.0</plugin.assembly.version>
+    </properties>
+    <dependencies>
+        <dependency> <!-- Spark dependency -->
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-sql_2.10</artifactId>
+            <version>${spark.sql.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.livy</groupId>
+            <artifactId>livy-client-http</artifactId>
+            <version>0.5.0-incubating</version>
+        </dependency>
 
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <version>${slf4j.log4j12.version}</version>
-    </dependency>
-  </dependencies>
+        <!-- Logging -->
+        <!--
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.log4j12.version}</version>
+        </dependency>
+        -->
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Make this jar executable -->
+            <!--
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.thinkbiganalytics.kylo.driver.LivyClientApp</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            -->
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>${plugin.assembly.version}</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>com.thinkbiganalytics.kylo.driver.LivyClientApp</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>assemble-all</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- https://mvnrepository.com/artifact/com.jolira/onejar-maven-plugin -->
+            <!-- <plugin>
+                <groupId>com.jolira</groupId>
+                <artifactId>onejar-maven-plugin</artifactId>
+                <version>${plugin.onejar.version}</version>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <mainClass>com.thinkbiganalytics.kylo.driver.LivyClientApp</mainClass>
+                        </configuration>
+                        <goals>
+                            <goal>one-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin> -->
+        </plugins>
+    </build>
 </project>
