@@ -25,6 +25,8 @@ import org.apache.livy.LivyClientBuilder;
 
 import java.io.File;
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * To run:
@@ -49,7 +51,7 @@ public class LivyClientApp {
             System.exit(-1);
         }
 
-        LivyClient client = new LivyClientBuilder()
+        LivyClient client = new LivyClientBuilder(true)
                 .setURI(new URI(args[0]))
                 .build();
 
